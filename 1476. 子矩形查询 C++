@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std; 
+
+class SubrectangleQueries {
+private:
+    vector<vector<int>> myRect;
+public:
+    SubrectangleQueries(vector<vector<int>>& rectangle) {
+        myRect = rectangle;
+    }
+    
+    void updateSubrectangle(int row1, int col1, int row2, int col2, int newValue) {
+        if(row1>row2 || col1 > col2){
+            cout<<"false input"<<endl;
+        }else{
+            for(int i = row1; i < row2+1; i++){
+                for(int j = col1; j < col2+1; j++){
+                    myRect[i][j] = newValue;
+                }
+            }           
+        }
+    }
+    
+    int getValue(int row, int col) {
+        if(row<myRect.size() && col < myRect[0].size()) return myRect[row][col];
+        else return NULL;
+    }
+};
+
+/**
+ * Your SubrectangleQueries object will be instantiated and called as such:
+ * SubrectangleQueries* obj = new SubrectangleQueries(rectangle);
+ * obj->updateSubrectangle(row1,col1,row2,col2,newValue);
+ * int param_2 = obj->getValue(row,col);
+ */
