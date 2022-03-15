@@ -1,0 +1,71 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string c ="";
+        if(a.length() < b.length()) swap(a, b);
+
+        if(a[0] == '0') return b;
+        else if(b[0] == '0') return a;
+
+        int flag = 0;
+        for( int i = a.length()-1, j = b.length()-1; j >= 0; i--,j--){
+            if( a[i] != b[j] ){
+                if(flag == 0){
+                    c+='1';
+                    //cout << "for_a_1_flag0 : j " << j << "; c: " << c << endl;
+                }else{
+                    c+='0';
+                    //cout << "for_a_1_flag1 : j " << j << "; c: " << c << endl;
+                    flag = 1;
+                }
+            }else if( (a[i] == '0') && (b[j] == '0') ){
+                if(flag == 0){
+                    c+='0';
+                    //cout << "for_a_0_flag0 : j " << j << "; c: " << c << endl;
+                }else{
+                    c+='1';
+                    //cout << "for_a_0_flag1 : j " << j << "; c: " << c << endl;
+                    flag = 0;
+                }
+            }else if( (a[i] == '1') && (b[j] == '1')){
+                if(flag == 0){
+                    c+='0';
+                    //cout << "for_a_2_flag0 : j " << j << "; c: " << c << endl;
+                    flag = 1;
+                }else{
+                    c+='1';
+                    //cout << "for_a_2_flag1 : j " << j << "; c: " << c << endl;
+                    flag = 1;
+                }
+            }
+            //cout << "c : " << c << endl;
+        }
+        if(a.length() == b.length()){
+            if(flag == 1) 
+                c+="1";
+            else c+='0';
+        }else{
+            for(int i = a.length()-b.length()-1; i>=0; i--){
+                if(a[i] == '1'){
+                    if(flag == 0) c+="1";
+                    else c+='0';
+                }else{
+                    if(flag == 0) c+='0';
+                    else{
+                        c+='1';
+                        flag = 0;
+                    }
+                }
+            }
+            if(flag == 1) c+= '1';
+        }
+        
+
+        int size = c.length()-1;
+        for(int i = size; i > size/2; i--){
+            swap(c[i],c[size - i]);
+        }
+        
+        return c;
+    }
+};
